@@ -1,0 +1,4 @@
+com.seven.mybatis.config.DynamicDataSourceAutoConfiguration
+com.seven.mybatis.config.pagehelper.PageHelperAutoConfiguration
+com.seven.mybatis.config.mapper.MapperAutoConfiguration
+com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration
