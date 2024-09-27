@@ -1,6 +1,5 @@
 package com.seven.mybatis.config.typehandler;
 
-import com.longfor.gaia.gfs.web.core.dto.BaseStringEnum;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 

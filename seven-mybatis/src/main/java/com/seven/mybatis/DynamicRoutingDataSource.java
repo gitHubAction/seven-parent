@@ -79,4 +79,35 @@ public class DynamicRoutingDataSource extends AbstractRoutingDataSource{
         Assert.state(this.dataSourceMap != null, "DataSources not resolved yet - call afterPropertiesSet");
         return Collections.unmodifiableMap(this.dataSourceMap);
     }
+
+    /**
+     * 动态添加数据源
+     * @param name
+     * @param dataSource
+     * @return void
+     * @author zhangshihao01
+     * @date 2024/9/25 17:57
+     */
+    public synchronized void addDataSource(String name, DataSource dataSource){
+        Assert.state(this.dataSourceMap != null, "DataSources not resolved yet - call afterPropertiesSet");
+        if(!this.dataSourceMap.containsKey(name)){
+            DataSource oldDatasource = this.dataSourceMap.put(name, dataSource);
+            //关闭老的数据源
+
+            beanFactory.registerSingleton(name + "DataSource", dataSource);
+        }
+    }
+
+    public synchronized boolean removeDataSource(String name){
+        if (primary.equals(name)) {
+            throw new RuntimeException("could not remove primary datasource");
+        }
+        if(!this.dataSourceMap.containsKey(name)){
+            return false;
+        }
+        DataSource existDatasource = this.dataSourceMap.remove(name);
+        //关闭老的数据源
+        beanFactory.removeBeanDefinition(name + "DataSource");
+        return existDatasource == null;
+    }
 }
